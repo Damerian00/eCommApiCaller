@@ -6,7 +6,7 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', (req, res) => {
   // find all products
-  Product.findAll([{ include: Category, Tag }]).then((productData) => {
+  Product.findAll({ include: Category, Tag }).then((productData) => {
     res.json(productData);
   })
     .catch((err) => res.json(err));
@@ -16,19 +16,11 @@ router.get('/', (req, res) => {
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
-  Product.findByPk(req.params.id, [{include: Category, Tag}]);
+  Product.findByPk(req.params.id, {include: Category, Tag})
+  
   // be sure to include its associated Category and Tag data
-  Product.update(
-    {
-      // All the fields you can update and the data attached to the request body.
-      where: {
-      name: req.body.name,
-      price: req.body.price,
-      stock: req.body.stopck,
-      category_id: req.body.category.name
-      },
-    }
-    ).then((updatedProduct) => {
+  
+   .then((updatedProduct) => {
       // Sends the updated book as a json response
       res.json(updatedProduct);
     })
@@ -45,15 +37,17 @@ router.post('/', (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create(req.body,
-    {
+  Product.create(req.body)
+    // {
+    //   name: req.body.name,
+    //   price: req.body.price,
+    //   stock: req.body.stopck,
+
+    //   tagIds: req.body.category.tagIds
+    //   },
+    
       // All the fields you can update and the data attached to the request body.
-      where: {
-      name: req.body.name,
-      price: req.body.price,
-      stock: req.body.stopck,
-      tagIds: req.body.category.tagIds
-      },})
+   
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -81,7 +75,18 @@ router.put('/:id', (req, res) => {
   Product.update(req.body, {
     where: {
       id: req.params.id,
+
     },
+    // Product.update(
+    //   {
+    //     // All the fields you can update and the data attached to the request body.
+    //     where: {
+    //     name: req.body.name,
+    //     price: req.body.price,
+    //     stock: req.body.stopck,
+    //     category_id: req.body.category.name
+    //     },
+    //   }
   })
     .then((product) => {
       // find all associated tags from ProductTag
