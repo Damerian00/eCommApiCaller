@@ -19,20 +19,3 @@ module.exports = {
   Tag,
   ProductTag,
 };
-
-
-try {
-  const categoryData = await Category.findByPk(req.params.id, {
-
-    include: [{ model: Location, through: Trip, as: 'planned_trips' }]
-  });
-
-  if (!categoryData) {
-    res.status(404).json({ message: 'No traveller found with this id!' });
-    return;
-  }
-
-  res.status(200).json(categoryData);
-} catch (err) {
-  res.status(500).json(err);
-}

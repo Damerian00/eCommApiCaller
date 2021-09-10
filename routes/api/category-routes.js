@@ -5,7 +5,7 @@ const { Category, Product } = require('../../models');
 
 router.get('/', async (req, res) => {
   // find all categories
- Category.findAll([{ include: Category }]).then((categoryData) => {
+ Category.findAll([{ include: Product }]).then((categoryData) => {
   res.json(categoryData);
 })
   .catch((err) => res.json(err));
@@ -15,9 +15,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
+  Category.findOne(req.params.id, [{include: Product}]);
   
-  
-  Category.update(
+    Category.update(
     {
       // All the fields you can update and the data attached to the request body.
       where: {
