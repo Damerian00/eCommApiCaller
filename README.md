@@ -67,7 +67,7 @@
 
 
 
-![Project Preview](./site_ss.png)
+![Project Preview](./site_ss.PNG)
 
 
 
