@@ -63,7 +63,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-  My work on this project was done on the back-end by using Sequelize to make my requests to perform CDRUD opperations on insomnia that would update a database of tables It uses node.js, mysql2, express, and other libraries to complete this task.
+  My work on this project was done on the back-end by using Sequelize to make my requests to perform CDRUD operations on insomnia that would update a database of tables It uses node.js, mysql2, express, and other libraries to complete this task.
 
 
 
